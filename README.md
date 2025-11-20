@@ -1,5 +1,4 @@
-﻿# A novel color image encryption algorithm based on infinite collapse map 
-and hierarchical strategy
+﻿# A novel color image encryption algorithm based on infinite collapse map and hierarchical strategy
  
 Chaos-based image encryption algorithms are important for information security, but current chaotic systems and 
 encryption algorithms still have optimization potential. This paper proposes a novel one-dimensional improved 
@@ -14,4 +13,5 @@ high-order and low-order bit planes are processed separately: high-order planes 
 diffusion, while low-order planes use bit-plane rotation. Finally, the encrypted bit-planes and color channel 
 matrices are merged for two-layer encryption. Experimental results and security evaluations confirm that the 
 HS-IEA significantly improves image encryption’s robustness, security, and performance
+
 
