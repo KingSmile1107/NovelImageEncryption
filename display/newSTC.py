@@ -1,0 +1,49 @@
+import matplotlib.pyplot as plt
+import numpy as np
+from tqdm import tqdm
+import matplotlib.pylab as mpl
+
+mpl.rcParams['font.sans-serif'] = ['Times New Roman']  # 指定默认字体
+mpl.rcParams['axes.unicode_minus'] = False  # 解决保存图像时负号'-'显示为方块的问题
+
+listx = []
+listy = []
+
+
+def sine_tent_cosine_map(r, x):
+    if x < 0.5:
+        return np.cos(np.pi * (r * np.sin(np.pi * x) + 2 * (1 - r) * x - x * 0.5))
+    else:
+        return np.cos(np.pi * (r * np.sin(np.pi * x) + 2 * (1 - r) * (1 - x) - x * 0.5))
+
+
+def derivative_sine_tent_cosine_map(r, x):
+    if x < 0.5:
+        return r * np.cos(np.pi * (r * np.sin(np.pi * x) + 2 * (1 - r) * x - x * 0.5))
+    else:
+        return r * np.cos(np.pi * (r * np.sin(np.pi * x) + 2 * (1 - r) * (1 - x) - x * 0.5))
+
+
+def Lyapunov(x, r):
+    return np.log(abs(derivative_sine_tent_cosine_map(r, x)))
+
+
+if __name__ == '__main__':
+    iteration = 1000
+    n = 1000
+    for r in tqdm(np.linspace(0, 1, n)):
+        x = 10e-5
+        ly = 0
+        for i in range(iteration):
+            x1 = sine_tent_cosine_map(r, x)
+            ly += Lyapunov(x, r)
+            x = x1
+        listx.append(r)
+        listy.append(ly / iteration)
+
+    plt.plot(listx, listy, label='STC map', linestyle='-', color='blue', marker='o', markersize=3, markevery=50)
+    plt.axhline(0, color='red', lw=0.7, alpha=0.5)
+    plt.xlabel("α")
+    plt.ylabel("LE")
+    plt.legend()
+    plt.show()
